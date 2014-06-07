@@ -1,3 +1,20 @@
+/**
+ * 
+ * Copyright ${year} Central Software
+
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ */
 package com.central.varth.resp;
 
 import java.io.BufferedReader;
@@ -7,7 +24,6 @@ import java.io.InputStreamReader;
 
 import com.central.varth.resp.type.BulkString;
 import com.central.varth.resp.type.RespArray;
-import com.central.varth.resp.type.RespError;
 import com.central.varth.resp.type.RespInteger;
 import com.central.varth.resp.type.RespType;
 import com.central.varth.resp.type.SimpleString;
@@ -19,26 +35,25 @@ public class RespDeserializer {
 	
 	public RespDeserializer(InputStream is) throws IOException, RespException
 	{
-		reader = new BufferedReader(new InputStreamReader(is));
+		InputStreamReader isr = new InputStreamReader(is);
+		reader = new BufferedReader(isr);
 	}
-		
-	protected RespType deserialize() throws IOException
+	
+	protected <T extends RespType> T deserialize(Class<T> type) throws IOException, RespException
 	{
 		String line = reader.readLine();
 		char typeMarker = line.charAt(0);
 		switch (typeMarker) {
 			case TypeConstant.SIMPLE_STRING_TYPE:
-				return parseResponseToSimpleString(line);
+				return type.cast(parseResponseToSimpleString(line));
 			case TypeConstant.INTEGER_TYPE:
-				return parseResponseToRespInteger(line);
+				return type.cast(parseResponseToRespInteger(line));
 			case TypeConstant.BULK_STRING_TYPE:
-				return parseResponseToBulkString(line, reader);
+				return type.cast(parseResponseToBulkString(line, reader));
 			case TypeConstant.ARRAY_TYPE:
-				return parseResponseToRespArray(line, reader);
+				return type.cast(parseResponseToRespArray(line, reader));
 			default:
-				RespError error = new RespError();
-				error.setError(line);
-				return error;
+				throw new RespException(line);
 		}
 	}	
 	
@@ -74,14 +89,14 @@ public class RespDeserializer {
 		return respInteger;	
 	}
 	
-	protected RespArray parseResponseToRespArray(String line, BufferedReader reader) throws IOException
+	protected RespArray parseResponseToRespArray(String line, BufferedReader reader) throws IOException, RespException
 	{
 		int len = getLengthInteger(line);
 		RespArray arr = new RespArray();
 		arr.setSize(len);
 		for (int i=0;i<len;i++)
 		{
-			RespType element = deserialize();
+			RespType element = deserialize(RespType.class);
 			arr.getElement().add(element);
 		}
 		return arr;
