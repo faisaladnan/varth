@@ -45,7 +45,7 @@ public class RespDeserializer {
 		reader = new BufferedReader(isr, bufferSize);
 	}	
 	
-	protected <T extends RespType> T deserialize(Class<T> type) throws IOException, RespException
+	public <T extends RespType> T deserialize(Class<T> type) throws IOException, RespException
 	{
 		String line = reader.readLine();
 		char typeMarker = line.charAt(0);
