@@ -20,4 +20,31 @@ package com.central.varth.resp;
 public class ProtocolConstant {
 
 	public final static String CRLF = "\r\n";
+	public final static String COMMAND_ASTERISK = "*";
+	public final static String COMMAND_DOLLAR = "$";
+	
+	// Connection commands
+	public final static String COMMAND_AUTH = "AUTH";
+	public final static String COMMAND_PING = "PING";
+	public final static String COMMAND_SELECT = "SELECT";
+	public final static String COMMAND_ECHO = "ECHO";	
+	public final static String COMMAND_QUIT = "QUIT";
+	
+	// Cluster commands
+	public final static String COMMAND_CLUSTER_INFO = "CLUSTER INFO";
+	public final static String COMMAND_CLUSTER_NODES = "CLUSTER NODES";
+	
+	// Strings commands
+	public final static String COMMAND_STRINGS_APPEND = "APPEND";
+	public final static String COMMAND_STRINGS_SET = "SET";	
+	public final static String COMMAND_STRINGS_GET = "GET";	
+	
+	// Lists commands
+	public final static String COMMAND_LIST_RPUSH = "RPUSH";	
+	public final static String COMMAND_LIST_LRANGE = "LRANGE";		
+	
+	// Hashes commands
+	public final static String COMMAND_LIST_HSET = "HSET";	
+	public final static String COMMAND_LIST_HGET = "HGET";			
+	
 }
