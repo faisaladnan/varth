@@ -39,6 +39,12 @@ public class RespDeserializer {
 		reader = new BufferedReader(isr);
 	}
 	
+	public RespDeserializer(InputStream is, int bufferSize) throws IOException, RespException
+	{
+		InputStreamReader isr = new InputStreamReader(is);
+		reader = new BufferedReader(isr, bufferSize);
+	}	
+	
 	protected <T extends RespType> T deserialize(Class<T> type) throws IOException, RespException
 	{
 		String line = reader.readLine();
