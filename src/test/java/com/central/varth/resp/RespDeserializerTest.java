@@ -24,6 +24,8 @@ import java.io.InputStream;
 import org.junit.Assert;
 import org.junit.Test;
 
+import redis.clients.util.RedisInputStream;
+
 import com.central.varth.resp.type.BulkString;
 import com.central.varth.resp.type.RespArray;
 import com.central.varth.resp.type.RespInteger;
@@ -43,6 +45,19 @@ public class RespDeserializerTest {
 		Assert.assertEquals("OK", type.getString());
 		Assert.assertNotNull(type);
 	}
+	
+	@Test
+	public void deserializeSimpleStringWithJedis() throws IOException, RespException
+	{
+		String str = "+OK\r\n";
+		InputStream is = new ByteArrayInputStream(str.getBytes());
+		RedisInputStream ris = new RedisInputStream(is);
+		RespDeserializer deserializer = new RespDeserializer(ris);
+		SimpleString type = deserializer.deserialize(SimpleString.class);
+		System.err.println(type.getString());
+		Assert.assertEquals("OK", type.getString());
+		Assert.assertNotNull(type);
+	}	
 	
 	@Test
 	public void deserializeRespInteger() throws IOException, RespException
@@ -68,7 +83,22 @@ public class RespDeserializerTest {
 		Assert.assertEquals(6, type.getSize());		
 		Assert.assertEquals("foobar", type.getString());				
 		Assert.assertNotNull(type);
-	}		
+	}
+	
+	@Test
+	public void deserializeBulkStringWithJedis() throws IOException, RespException
+	{
+		String str = "$6\r\nfoobar\r\n";
+		InputStream is = new ByteArrayInputStream(str.getBytes());
+		RedisInputStream ris = new RedisInputStream(is);
+		RespDeserializer deserializer = new RespDeserializer(ris);
+		BulkString type = deserializer.deserialize(BulkString.class);
+		System.err.println(type.getSize());
+		System.err.println(type.getString());
+		Assert.assertEquals(6, type.getSize());		
+		Assert.assertEquals("foobar", type.getString());				
+		Assert.assertNotNull(type);
+	}	
 	
 	@Test
 	public void deserializeRespArray() throws IOException, RespException
@@ -87,7 +117,47 @@ public class RespDeserializerTest {
 			System.err.println(t.toString());
 		}
 		Assert.assertNotNull(type);
-	}			
+	}	
+	
+	@Test
+	public void deserializeRespArrayWithJedis() throws IOException, RespException
+	{
+		String str = "*3\r\n$3\r\nfoo\r\n$3\r\nbar\r\n:4001\r\n";
+		InputStream is = new ByteArrayInputStream(str.getBytes());
+		RedisInputStream ris = new RedisInputStream(is);
+		RespDeserializer deserializer = new RespDeserializer(ris);
+		RespArray type = deserializer.deserialize(RespArray.class);
+		System.err.println(type.getSize());
+		System.err.println(type.toString());
+		Assert.assertEquals(3, type.getSize());
+		Assert.assertEquals(3, type.getElement().size());
+		for (int i=0;i<type.getSize();i++)
+		{
+			RespType t = type.getElement().get(i);
+			System.err.println(t.toString());
+		}
+		Assert.assertNotNull(type);
+	}
+	
+	@Test
+	public void deserializeRespArrayWithJedisSmallBufferSize() throws IOException, RespException
+	{
+		String str = "*3\r\n$3\r\nfoo\r\n$3\r\nbar\r\n:4001\r\n";
+		InputStream is = new ByteArrayInputStream(str.getBytes());
+		RedisInputStream ris = new RedisInputStream(is);
+		RespDeserializer deserializer = new RespDeserializer(ris, 8);
+		RespArray type = deserializer.deserialize(RespArray.class);
+		System.err.println(type.getSize());
+		System.err.println(type.toString());
+		Assert.assertEquals(3, type.getSize());
+		Assert.assertEquals(3, type.getElement().size());
+		for (int i=0;i<type.getSize();i++)
+		{
+			RespType t = type.getElement().get(i);
+			System.err.println(t.toString());
+		}
+		Assert.assertNotNull(type);
+	}	
 	
 	@Test
 	public void deserializeEmptyRespArray() throws IOException, RespException
