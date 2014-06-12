@@ -1,6 +1,6 @@
 /**
  * 
- * Copyright ${year} Central Software
+ * Copyright 2014 Central Software
 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,18 @@
  * limitations under the License.
  * 
  */
-package varth;
 
-public class Link {
+package com.central.varth.resp.command;
 
-	
+import java.io.IOException;
+
+import com.central.varth.resp.RespClient;
+import com.central.varth.resp.RespException;
+
+public interface ConnectionService {
+
+	public String auth(String password) throws IOException, RespException;
+	public String ping() throws IOException, RespException;
+	public String echo(String message) throws IOException, RespException;	
+	public void setClient(RespClient client);
 }

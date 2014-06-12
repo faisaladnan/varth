@@ -1,6 +1,6 @@
 /**
  * 
- * Copyright ${year} Central Software
+ * Copyright 2014 Central Software
 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,17 @@
  * limitations under the License.
  * 
  */
-package varth;
 
-public class Link {
+package com.central.varth.resp.command;
 
-	
+import com.central.varth.resp.type.BulkString;
+import com.central.varth.resp.type.RespArray;
+import com.central.varth.resp.type.RespInteger;
+
+public interface HashService {
+
+	public RespInteger hset(String key, String field, String value);
+	public BulkString hget(String key, String field);
+	public RespArray hkeys(String key);
+	public RespInteger hlen(String key);
 }

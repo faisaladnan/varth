@@ -26,13 +26,26 @@ public class RespSerializer {
 
 	public RespSerializer() {}
 	
-	public String serialize(String command)
+	public String serialize(String command, String... args)
 	{
 		StringBuilder cmd = new StringBuilder();
-		List<String> cmdList = tokenize(command);
+		String completeCmd = buildCompleteCommand(command, args);
+		List<String> cmdList = tokenize(completeCmd);
 		cmd.append(getHeader(cmdList));
 		cmd.append(getBody(cmdList));
 		return cmd.toString();
+	}
+	
+	private String buildCompleteCommand(String command, String... args)
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append(command);
+		for (int i=0;i<args.length;i++)
+		{
+			sb.append(ProtocolConstant.COMMAND_SPACE);
+			sb.append(args[i]);
+		}
+		return sb.toString();
 	}
 	
 	public List<String> tokenize(String command)
