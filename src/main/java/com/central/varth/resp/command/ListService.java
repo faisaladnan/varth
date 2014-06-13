@@ -21,7 +21,7 @@ package com.central.varth.resp.command;
 import com.central.varth.resp.type.RespArray;
 import com.central.varth.resp.type.RespInteger;
 
-public interface ListService {
+public interface ListService extends CommandService {
 
 	public RespInteger rpush(String key, String... values);
 	public RespArray lrange(String key);

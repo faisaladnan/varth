@@ -16,16 +16,13 @@
  * 
  */
 
-package com.central.varth.resp.command;
+package com.central.varth.cluster;
 
-import com.central.varth.resp.type.BulkString;
-import com.central.varth.resp.type.RespArray;
-import com.central.varth.resp.type.RespInteger;
+import java.util.List;
 
-public interface HashService extends CommandService {
+import com.central.varth.resp.cluster.ClusterNode;
 
-	public RespInteger hset(String key, String field, String value);
-	public BulkString hget(String key, String field);
-	public RespArray hkeys(String key);
-	public RespInteger hlen(String key);
+public interface ClusterNodeParser {
+
+	public List<ClusterNode> parse(String raw);
 }

@@ -42,7 +42,7 @@ public class RespSerializer {
 		sb.append(command);
 		for (int i=0;i<args.length;i++)
 		{
-			sb.append(ProtocolConstant.COMMAND_SPACE);
+			sb.append(ProtocolConstant.SPACE);
 			sb.append(args[i]);
 		}
 		return sb.toString();

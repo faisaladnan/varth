@@ -18,14 +18,13 @@
 
 package com.central.varth.resp.command;
 
+import java.io.IOException;
+
+import com.central.varth.resp.RespException;
 import com.central.varth.resp.type.BulkString;
-import com.central.varth.resp.type.RespArray;
-import com.central.varth.resp.type.RespInteger;
 
-public interface HashService extends CommandService {
+public interface ClusterService extends CommandService {
 
-	public RespInteger hset(String key, String field, String value);
-	public BulkString hget(String key, String field);
-	public RespArray hkeys(String key);
-	public RespInteger hlen(String key);
+	public BulkString clusterInfo() throws IOException, RespException;
+	public BulkString clusterNodes() throws IOException, RespException;
 }

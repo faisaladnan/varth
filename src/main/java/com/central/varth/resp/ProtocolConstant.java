@@ -20,9 +20,11 @@ package com.central.varth.resp;
 public class ProtocolConstant {
 
 	public final static String CRLF = "\r\n";
+	public final static String CR = "\r";
+	public final static String LF = "\n";
 	public final static String COMMAND_ASTERISK = "*";
 	public final static String COMMAND_DOLLAR = "$";
-	public final static String COMMAND_SPACE = " ";
+	public final static String SPACE = " ";
 	public final static String RESPONSE_OK = "OK";
 	
 	public final static String RESPONSE_PONG = "PONG";	

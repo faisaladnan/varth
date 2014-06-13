@@ -16,15 +16,36 @@
  * 
  */
 
-package com.central.varth.resp.command;
+package com.central.varth.cluster;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
+import com.central.varth.resp.RespClient;
 import com.central.varth.resp.RespException;
+import com.central.varth.resp.cluster.ClusterNode;
+import com.central.varth.resp.command.ClusterService;
+import com.central.varth.resp.type.BulkString;
 
-public interface ConnectionService extends CommandService {
+public class DefaultSlotMappingService implements SlotMappingService {
 
-	public String auth(String password) throws IOException, RespException;
-	public String ping() throws IOException, RespException;
-	public String echo(String message) throws IOException, RespException;	
+	
+	@Override
+	public Map<Integer, RespClient> buildMap(String rawClusterInfo) {
+		return null;
+	}
+
+	@Override
+	public RespClient getClient(String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<Integer, RespClient> getSlotMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

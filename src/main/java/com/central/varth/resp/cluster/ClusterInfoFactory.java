@@ -16,16 +16,8 @@
  * 
  */
 
-package com.central.varth.resp.command;
+package com.central.varth.resp.cluster;
 
-import com.central.varth.resp.type.BulkString;
-import com.central.varth.resp.type.RespArray;
-import com.central.varth.resp.type.RespInteger;
+public class ClusterInfoFactory {
 
-public interface HashService extends CommandService {
-
-	public RespInteger hset(String key, String field, String value);
-	public BulkString hget(String key, String field);
-	public RespArray hkeys(String key);
-	public RespInteger hlen(String key);
 }

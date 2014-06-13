@@ -18,14 +18,9 @@
 
 package com.central.varth.resp.command;
 
-import com.central.varth.resp.type.BulkString;
-import com.central.varth.resp.type.RespArray;
-import com.central.varth.resp.type.RespInteger;
+import com.central.varth.resp.RespClient;
 
-public interface HashService extends CommandService {
+public interface CommandService {
 
-	public RespInteger hset(String key, String field, String value);
-	public BulkString hget(String key, String field);
-	public RespArray hkeys(String key);
-	public RespInteger hlen(String key);
+	public void setClient(RespClient client);
 }
