@@ -16,15 +16,21 @@
  * 
  */
 
-package com.central.varth.resp;
+package com.central.varth.resp.connection;
 
 import java.io.IOException;
 
+import com.central.varth.resp.RespException;
+import com.central.varth.resp.cluster.ClusterNode;
 import com.central.varth.resp.type.RespType;
 
 public interface RespClient {
 
 	public void connect(String hostname, int port) throws IOException;
 	
+	public void connect(ClusterNode node) throws IOException;
+	
 	public <T extends RespType> T send(String command, Class<T> responseClass) throws IOException, RespException;
+	
+	public boolean hasSlot(int slot);
 }
