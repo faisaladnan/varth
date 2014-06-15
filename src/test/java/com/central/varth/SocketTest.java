@@ -8,11 +8,11 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.Ignore;
 
 public class SocketTest {
 
-	@Test
+	@Ignore
 	public void redisSocketTest()
 	{
 		String hostname = "localhost";
