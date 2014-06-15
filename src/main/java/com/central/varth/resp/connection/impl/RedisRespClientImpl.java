@@ -54,9 +54,14 @@ public class RedisRespClientImpl implements RespClient {
 
 	public RedisRespClientImpl(ClusterNode node) throws IOException
 	{
-		this(node.getInetSocketAddress().getHostString(), node.getInetSocketAddress().getPort(), DEFAULT_CONNECT_TIMEOUT, DEFAULT_SOCKET_TIMEOUT, DEFAULT_AUTOCONNECT);		
-		this.clusterNode = node;
+		this(node, true);
 	}
+
+	public RedisRespClientImpl(ClusterNode node, boolean autoConnect) throws IOException
+	{
+		this(node.getInetSocketAddress().getHostString(), node.getInetSocketAddress().getPort(), DEFAULT_CONNECT_TIMEOUT, DEFAULT_SOCKET_TIMEOUT, autoConnect);		
+		this.clusterNode = node;
+	}		
 	
 	public RedisRespClientImpl(String hostname, int port, int connectTimout, int socketTimeout, boolean autoConnect) throws IOException
 	{		
