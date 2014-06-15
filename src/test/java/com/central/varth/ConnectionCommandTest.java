@@ -18,7 +18,6 @@
 package com.central.varth;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,8 +28,10 @@ import java.net.UnknownHostException;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class ConnectionCommandTest {
 
 	public String hostname = "localhost";

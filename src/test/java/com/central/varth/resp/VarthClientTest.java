@@ -26,12 +26,14 @@ import java.net.Socket;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.central.varth.resp.type.BulkString;
 import com.central.varth.resp.type.RespArray;
 import com.central.varth.resp.type.SimpleString;
 
+@Ignore
 public class VarthClientTest {
 
 	String hostname = "localhost";
