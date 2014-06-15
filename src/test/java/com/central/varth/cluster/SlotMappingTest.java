@@ -67,6 +67,10 @@ public class SlotMappingTest {
 		Assert.assertEquals(map.size(), ProtocolConstant.SLOT_MAX_SIZE);		
 		for (Map.Entry<Integer, RespClient> entry: map.entrySet())
 		{
+			if (entry.getValue() == null)
+			{
+				System.err.println(entry.getKey() + ":" + entry.getValue());
+			}
 			Assert.assertNotNull(entry.getKey());
 			Assert.assertNotNull(entry.getValue());
 		}
