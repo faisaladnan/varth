@@ -18,7 +18,9 @@
 package com.central.varth.resp;
 
 public class ProtocolConstant {
-
+	
+	public final static int SLOT_MAX_SIZE = 16384;
+	
 	public final static String CRLF = "\r\n";
 	public final static String CR = "\r";
 	public final static String LF = "\n";
