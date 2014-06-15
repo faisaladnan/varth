@@ -16,7 +16,7 @@
  * 
  */
 
-package com.central.varth.cluster;
+package com.central.varth.resp.cluster;
 
 import java.util.HashMap;
 import java.util.List;

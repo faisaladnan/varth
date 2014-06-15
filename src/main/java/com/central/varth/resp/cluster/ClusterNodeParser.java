@@ -16,15 +16,11 @@
  * 
  */
 
-package com.central.varth.cluster;
+package com.central.varth.resp.cluster;
 
 import java.util.List;
-import java.util.Map;
 
-import com.central.varth.resp.connection.RespClient;
+public interface ClusterNodeParser {
 
-public interface SlotMappingService {
-
-	public Map<Integer, RespClient> buildMap(List<RespClient> clients);
-	public Map<Integer, RespClient> getSlotMap();
+	public List<ClusterNode> parse(String raw);
 }

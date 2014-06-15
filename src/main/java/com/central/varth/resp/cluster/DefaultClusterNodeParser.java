@@ -16,7 +16,7 @@
  * 
  */
 
-package com.central.varth.cluster;
+package com.central.varth.resp.cluster;
 
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -24,7 +24,6 @@ import java.util.List;
 
 import com.central.varth.resp.Flags;
 import com.central.varth.resp.ProtocolConstant;
-import com.central.varth.resp.cluster.ClusterNode;
 
 public class DefaultClusterNodeParser implements ClusterNodeParser 
 {
