@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/faisaladnan/varth.svg?branch=master)](https://travis-ci.org/faisaladnan/varth)
 
-varth
+# Varth
 =====
 
-v a r t h
+Varth is library for RESP (Redis Serialization Protocol) client. 
