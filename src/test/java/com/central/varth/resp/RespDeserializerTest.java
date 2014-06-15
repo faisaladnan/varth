@@ -67,7 +67,7 @@ public class RespDeserializerTest {
 		RespDeserializer deserializer = new RespDeserializer(is);
 		RespInteger type = deserializer.deserialize(RespInteger.class);
 		System.err.println(type.getInteger());
-		Assert.assertEquals("1000", type.getInteger());
+		Assert.assertEquals(1000, type.getInteger());
 		Assert.assertNotNull(type);
 	}	
 	
