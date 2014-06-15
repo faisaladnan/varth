@@ -21,10 +21,10 @@ package com.central.varth.resp.command.impl;
 import java.io.IOException;
 
 import com.central.varth.resp.ProtocolConstant;
-import com.central.varth.resp.RespClient;
 import com.central.varth.resp.RespException;
 import com.central.varth.resp.RespSerializer;
 import com.central.varth.resp.command.ConnectionService;
+import com.central.varth.resp.connection.RespClient;
 import com.central.varth.resp.type.SimpleString;
 
 public class ConnectionServiceImpl implements ConnectionService

@@ -18,7 +18,7 @@
 
 package com.central.varth.resp.command;
 
-import com.central.varth.resp.RespClient;
+import com.central.varth.resp.connection.RespClient;
 
 public interface CommandService {
 
