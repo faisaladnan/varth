@@ -73,14 +73,16 @@ public class RedisRespClientImpl implements RespClient {
 		socket.setTcpNoDelay(true); // Socket buffer Whetherclosed, to ensure timely delivery of data
 		socket.setSoLinger(true, 0); // Control calls close () method, the underlying socket is closed immediately
 		socket.setSoTimeout(socketTimeout);
+
+		this.setConnectTimeout(connectTimout);
+		this.setSocketTimeout(socketTimeout);
+
 		if (autoConnect)
 		{
 			socket.connect(new InetSocketAddress(hostname, port), connectTimout);
+			this.out = socket.getOutputStream();
+			this.in = socket.getInputStream();	
 		}
-		this.out = socket.getOutputStream();
-		this.in = socket.getInputStream();	
-		this.setConnectTimeout(connectTimout);
-		this.setSocketTimeout(socketTimeout);
 	}	
 	
 	@Override

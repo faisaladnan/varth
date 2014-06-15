@@ -58,7 +58,7 @@ public class SlotMappingTest {
 	private List<ClusterNode> nodes;
 	
 	@Before
-	public void setUp()
+	public void setUp() throws IOException
 	{
 		MockitoAnnotations.initMocks(this);
 		ClusterNodeParser parser = new DefaultClusterNodeParser();
@@ -69,15 +69,11 @@ public class SlotMappingTest {
 		clients = connectionManager.buildAllClient(nodes);
 	}
 	
-	private void prepareClientBuilder()
+	private void prepareClientBuilder() throws IOException
 	{
 		for (ClusterNode node:nodes)
 		{
-			try {
-				when(builder.build(node)).thenReturn(new RedisRespClientImpl(node, false));
-			} catch (IOException e) {
-				// do nothing
-			}
+			when(builder.build(node)).thenReturn(new RedisRespClientImpl(node, false));
 		}
 	}
 	
