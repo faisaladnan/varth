@@ -18,14 +18,17 @@
 
 package com.central.varth.resp.cluster;
 
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.central.varth.resp.Flags;
 
 public class ClusterNode {
 	
 	private String nodeId;
-	private String addressPort;
-	private String flags;
+	private Flags flags;
+	private InetSocketAddress inetSocketAddress;
 	private String masterNodeId;
 	private String lastPendingPing;
 	private String lastPongReceived;
@@ -38,18 +41,6 @@ public class ClusterNode {
 	}
 	public void setNodeId(String nodeId) {
 		this.nodeId = nodeId;
-	}
-	public String getAddressPort() {
-		return addressPort;
-	}
-	public void setAddressPort(String addressPort) {
-		this.addressPort = addressPort;
-	}
-	public String getFlags() {
-		return flags;
-	}
-	public void setFlags(String flags) {
-		this.flags = flags;
 	}
 	public String getMasterNodeId() {
 		return masterNodeId;
@@ -86,6 +77,18 @@ public class ClusterNode {
 	}
 	public void setSlots(List<String> slots) {
 		this.slots = slots;
+	}
+	public Flags getFlags() {
+		return flags;
+	}
+	public void setFlags(Flags flags) {
+		this.flags = flags;
+	}
+	public InetSocketAddress getInetSocketAddress() {
+		return inetSocketAddress;
+	}
+	public void setInetSocketAddress(InetSocketAddress inetSocketAddress) {
+		this.inetSocketAddress = inetSocketAddress;
 	}
 		
 }
