@@ -30,6 +30,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.central.varth.resp.command.ConnectionService;
 import com.central.varth.resp.command.impl.ConnectionServiceImpl;
+import com.central.varth.resp.connection.RespClient;
 import com.central.varth.resp.type.SimpleString;
 
 public class ConnectionServiceMockTest {

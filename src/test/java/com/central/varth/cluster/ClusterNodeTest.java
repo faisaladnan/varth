@@ -24,6 +24,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.central.varth.resp.cluster.ClusterNode;
+import com.central.varth.resp.cluster.ClusterNodeParser;
+import com.central.varth.resp.cluster.DefaultClusterNodeParser;
 
 public class ClusterNodeTest {
 
