@@ -18,12 +18,17 @@
 
 package com.central.varth.cluster;
 
+import static org.mockito.Mockito.when;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import com.central.varth.resp.ProtocolConstant;
 import com.central.varth.resp.cluster.ClusterNode;
@@ -35,7 +40,7 @@ import com.central.varth.resp.connection.ConnectionManager;
 import com.central.varth.resp.connection.RespClient;
 import com.central.varth.resp.connection.RespClientBuilder;
 import com.central.varth.resp.connection.impl.RedisConnectionManagerImpl;
-import com.central.varth.resp.connection.impl.RedisRespClientBuilder;
+import com.central.varth.resp.connection.impl.RedisRespClientImpl;
 
 public class SlotMappingTest {
 
@@ -47,19 +52,37 @@ public class SlotMappingTest {
 			"6ab17726d88c1fdf8693b22b25aef8ba0e806efa 127.0.0.1:7005 slave 1350e2bb7b20f160e54629958b4dabb772c661b0 0 1402694958101 22 connected\n" + 
 			"7ce9cdc2c8dec44a0f09096af6f8f9865257e724 127.0.0.1:7001 master - 0 1402694957597 23 connected 566-5961 10923-11421";
 
+	@Mock
+	private RespClientBuilder<ClusterNode> builder;
+	
+	private List<ClusterNode> nodes;
+	
 	@Before
 	public void setUp()
 	{
+		MockitoAnnotations.initMocks(this);
 		ClusterNodeParser parser = new DefaultClusterNodeParser();
-		List<ClusterNode> nodes = parser.parse(rawClusterInfo);
-		RespClientBuilder<ClusterNode> builder = new RedisRespClientBuilder();		
+		nodes = parser.parse(rawClusterInfo);
+		prepareClientBuilder();
 		ConnectionManager<ClusterNode> connectionManager = new RedisConnectionManagerImpl();
 		connectionManager.setRespClientBuilder(builder);
 		clients = connectionManager.buildAllClient(nodes);
 	}
 	
+	private void prepareClientBuilder()
+	{
+		for (ClusterNode node:nodes)
+		{
+			try {
+				when(builder.build(node)).thenReturn(new RedisRespClientImpl(node, false));
+			} catch (IOException e) {
+				// do nothing
+			}
+		}
+	}
+	
 	@Test
-	public void mapping()
+	public void mappingTest()
 	{
 		SlotMappingService mappingService = new DefaultSlotMappingService();
 		Map<Integer, RespClient> map = mappingService.buildMap(clients);
