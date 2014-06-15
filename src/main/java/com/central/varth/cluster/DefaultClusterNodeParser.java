@@ -18,9 +18,11 @@
 
 package com.central.varth.cluster;
 
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.central.varth.resp.Flags;
 import com.central.varth.resp.ProtocolConstant;
 import com.central.varth.resp.cluster.ClusterNode;
 
@@ -44,8 +46,8 @@ public class DefaultClusterNodeParser implements ClusterNodeParser
 		ClusterNode node = new ClusterNode();
 		String[] cols = line.split(ProtocolConstant.SPACE);
 		node.setNodeId(cols[0]);
-		node.setAddressPort(cols[1]);
-		node.setFlags(cols[2]);
+		node.setInetSocketAddress(buildInetSocketAddress(cols[1]));
+		node.setFlags(Flags.fromName(cols[2]));
 		node.setMasterNodeId(cols[3]);
 		node.setLastPendingPing(cols[4]);
 		node.setLastPongReceived(cols[5]);
@@ -58,5 +60,16 @@ public class DefaultClusterNodeParser implements ClusterNodeParser
 		}
 		node.setSlots(slots);
 		return node;
+	}
+	
+	private InetSocketAddress buildInetSocketAddress(String addressPort)
+	{
+		InetSocketAddress inetSocketAddress = null;
+		if (addressPort == null) return null;
+		String[] arr = addressPort.split(":");
+		if (arr.length < 2) return null;
+		int port = Integer.parseInt(arr[1]);
+		inetSocketAddress = new InetSocketAddress(arr[0], port);
+		return inetSocketAddress;
 	}
 }

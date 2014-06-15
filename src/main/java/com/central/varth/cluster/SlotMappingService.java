@@ -18,14 +18,13 @@
 
 package com.central.varth.cluster;
 
+import java.util.List;
 import java.util.Map;
 
-import com.central.varth.resp.RespClient;
-import com.central.varth.resp.command.ClusterService;
+import com.central.varth.resp.connection.RespClient;
 
 public interface SlotMappingService {
 
-	public Map<Integer, RespClient> buildMap(String rawClusterInfo);
-	public RespClient getClient(String key);
+	public Map<Integer, RespClient> buildMap(List<RespClient> clients);
 	public Map<Integer, RespClient> getSlotMap();
 }

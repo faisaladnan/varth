@@ -18,27 +18,36 @@
 
 package com.central.varth.cluster;
 
-import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.central.varth.resp.RespClient;
-import com.central.varth.resp.RespException;
-import com.central.varth.resp.cluster.ClusterNode;
-import com.central.varth.resp.command.ClusterService;
-import com.central.varth.resp.type.BulkString;
+import com.central.varth.resp.ProtocolConstant;
+import com.central.varth.resp.connection.RespClient;
 
 public class DefaultSlotMappingService implements SlotMappingService {
 
 	
 	@Override
-	public Map<Integer, RespClient> buildMap(String rawClusterInfo) {
-		return null;
+	public Map<Integer, RespClient> buildMap(List<RespClient> clients) {
+		Map<Integer, RespClient> map = new HashMap<Integer, RespClient>();
+		for (int i=0;i<ProtocolConstant.SLOT_MAX_SIZE;i++)
+		{
+			RespClient client = findClient(i, clients);
+			map.put(i, client);
+		}
+		return map;
 	}
-
-	@Override
-	public RespClient getClient(String key) {
-		// TODO Auto-generated method stub
+	
+	protected RespClient findClient(int slot, List<RespClient> clients)
+	{
+		for (RespClient client:clients)
+		{
+			if (client != null && client.hasSlot(slot))
+			{
+				return client;
+			}
+		}
 		return null;
 	}
 
